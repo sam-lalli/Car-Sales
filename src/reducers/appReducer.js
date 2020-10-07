@@ -1,5 +1,4 @@
-import { ADD_FEATURE } from '../actions/appActions';
-import { DELTE_FEATURE } from '../actions/appActions'
+import { ADD_FEATURE, DELTE_FEATURE } from '../actions/appActions';
 
 export const initialState = {
         additionalPrice: 0,
@@ -23,6 +22,7 @@ export const appReducer = (state = initialState, action) => {
         case ADD_FEATURE:
             return{
                 ...state,
+                additionalPrice: state.additionalPrice + action.payload.price,
                 car: {
                     ...state.car, 
                     features: [...state.car.features, action.payload]
@@ -31,13 +31,13 @@ export const appReducer = (state = initialState, action) => {
         case DELTE_FEATURE:
             return {
                 ...state,
+                additionalPrice: state.additionalPrice - action.payload.price,
                 car: {
                     ...state.car,
-                    features: [...state.car.features.filter((item) => !item)]
+                    features: [...state.car.features.filter((item) => item.id !== action.payload.id)]
                 }
             }
         default:
             return state;
-
     };
 };
