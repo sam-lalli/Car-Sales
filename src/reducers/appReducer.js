@@ -1,3 +1,5 @@
+import { ADD_FEATURE } from '../actions/appActions';
+import { DELTE_FEATURE } from '../actions/appActions'
 
 export const initialState = {
         additionalPrice: 0,
@@ -18,8 +20,22 @@ export const initialState = {
 
 export const appReducer = (state = initialState, action) => {
     switch(action.type) {
-        //cases
-
+        case ADD_FEATURE:
+            return{
+                ...state,
+                car: {
+                    ...state.car, 
+                    features: [...state.car.features, action.payload]
+            }
+        }
+        case DELTE_FEATURE:
+            return {
+                ...state,
+                car: {
+                    ...state.car,
+                    features: [...state.car.features.filter((item) => !item)]
+                }
+            }
         default:
             return state;
 
